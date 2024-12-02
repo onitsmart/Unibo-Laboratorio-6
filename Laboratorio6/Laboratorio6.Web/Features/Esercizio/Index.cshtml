@@ -1,0 +1,53 @@
+﻿@model Laboratorio6.Web.Features.Esercizio.IndexViewModel
+@{
+    ViewData["Title"] = "Esercizio";
+}
+
+<div class="container-lg">
+    <div class="row">
+        <div class="col-12">
+            @* ESERCIZIO
+                SI RICHIEDE DI:
+                - Caricare tutti i messaggi passati nel modello
+                - Mostrare il testo del messaggio al posto di "Testo messaggio"
+                - Per ogni messaggio decidere se deve essere o meno visualizzato con la proprietà "daMostrare"
+                - Per ogni messaggio colorare il background con il colore indicato nella proprietà "coloreSfondo"
+                - Rendere dinamiche le classi, text-error/text-success e assegnarne solo 1 in base al valore della proprietà "errore"
+
+                - Dopo aver finito i punti sopra, verificare in cosa differiscono v-show e v-if, entrambe prevedono un parametro booleano quindi potete provarli con il flag "daMostrare"
+                
+                - Bonus: aggiungere un pulsante sopra all'elenco dei messaggi, con testo iniziale "Mostra i messaggi"
+                Al click, il testo cambia in "Nascondi i messaggi" e così via ad ogni click.
+                Quando il testo riporta "Nascondi i messaggi", l'elenco dei messaggi deve essere visibile, 
+                quando il testo riporta "Mostra i messaggi", l'elenco dei messaggi non deve essere visibile.
+            *@
+            <div class="text-success" style="background-color: gray;">
+                Testo messaggio
+            </div>
+        </div>
+    </div>
+</div>
+
+@* @section styles {
+    <link href="~/css/bundle-vue-multiselect.css" asp-append-version="true" rel="stylesheet" />
+} *@
+
+@section scripts {
+    <script src="~/js/bundle-vue.js" asp-append-version="true"></script>
+    @*     <script src="~/js/bundle-vue-multiselect.js" asp-append-version="true"></script> *@
+    <script src="~/Features/Esercizio/Index.js" asp-append-version="true"></script>
+
+    <script type="application/json" id="Seed_JSON">
+        @Html.Raw(Model.ToJson())
+    </script>
+    <script type="text/javascript">
+        var viewModel = new Esercizio.indexViewModel(JSON.parse(document.getElementById("Seed_JSON").innerText));
+
+        // Vue.component("vue-multiselect", VueMultiselect.Multiselect);
+
+        var vueModel = new Vue({
+            el: '#pageId',
+            data: viewModel
+        });
+    </script>
+}

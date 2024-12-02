@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "_LayoutHtml";
+    var version = System.Reflection.Assembly.GetAssembly(typeof(Startup)).GetName().Version;
+}
+@section metas {
+    @RenderSection("metas", false)
+}
+@section styles {
+    @RenderSection("styles", false)
+}
+<div id="pageId">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="@Url.Action(MVC.Esercizio.Index())">Laboratorio6.Web</a>
+            </div>
+            <a class="nav-link" href="@Url.Action(MVC.Esercizio.Index())">Esercizio</a>
+        </nav>
+    </header>
+    @RenderSection("pageTitle", false)
+    @RenderSection("pageSubtitle", false)
+    <main>
+        @RenderBody()
+    </main>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Laboratorio6.Web
+        </div>
+    </footer>
+</div>
+@section scripts {
+    @RenderSection("scripts", false)
+}
