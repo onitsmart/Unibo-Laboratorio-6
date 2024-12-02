@@ -21,7 +21,7 @@
                 Quando il testo riporta "Nascondi i messaggi", l'elenco dei messaggi deve essere visibile, 
                 quando il testo riporta "Mostra i messaggi", l'elenco dei messaggi non deve essere visibile.
             *@
-            <div class="text-success" style="background-color: gray;">
+            <div class="text-success" style="background-color: lightgray;">
                 Testo messaggio
             </div>
         </div>
@@ -41,7 +41,7 @@
         @Html.Raw(Model.ToJson())
     </script>
     <script type="text/javascript">
-        var viewModel = new Esercizio.indexViewModel(JSON.parse(document.getElementById("Seed_JSON").innerText));
+        var viewModel = new Features.Esercizio.indexViewModel(JSON.parse(document.getElementById("Seed_JSON").innerText));
 
         // Vue.component("vue-multiselect", VueMultiselect.Multiselect);
 
