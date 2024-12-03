@@ -7,24 +7,72 @@
     <div class="row">
         <div class="col-12">
             @* ESERCIZIO
-                SI RICHIEDE DI:
-                - Caricare tutti i messaggi passati nel modello
-                - Mostrare il testo del messaggio al posto di "Testo messaggio"
-                - Aggiungere prima del testo anche il nome dell'utente "nomeUtente" separandolo dal testo con un trattino "-"
-                - Per ogni messaggio decidere se deve essere o meno visualizzato con la proprietà "daMostrare"
-                - Per ogni messaggio colorare il background con il colore indicato nella proprietà "coloreSfondo"
-                - Rendere dinamiche le classi, text-error/text-success e assegnarne solo 1 in base al valore della proprietà "errore"
+            SI RICHIEDE DI:
+            1 Caricare tutti i messaggi passati nel modello
+            2 Mostrare il testo del messaggio al posto di "Testo messaggio"
+            3 Aggiungere prima del testo anche il nome dell'utente "nomeUtente" separandolo dal testo con un trattino "-"
+            4 Per ogni messaggio decidere se deve essere o meno visualizzato con la proprietà "daMostrare"
+            5 Per ogni messaggio colorare il background con il colore indicato nella proprietà "coloreSfondo"
+            6 Rendere dinamiche le classi, text-error/text-success e assegnarne solo 1 in base al valore della proprietà "errore"
 
-                - Dopo aver finito i punti sopra, verificare in cosa differiscono v-show e v-if, entrambe prevedono un parametro booleano quindi potete provarli con il flag "daMostrare"
-                
-                - Bonus: aggiungere un pulsante sopra all'elenco dei messaggi, con testo iniziale "Mostra i messaggi"
-                Al click, il testo cambia in "Nascondi i messaggi" e così via ad ogni click.
-                Quando il testo riporta "Nascondi i messaggi", l'elenco dei messaggi deve essere visibile, 
-                quando il testo riporta "Mostra i messaggi", l'elenco dei messaggi non deve essere visibile.
+            7 Dopo aver finito i punti sopra, verificare in cosa differiscono v-show e v-if, entrambe prevedono un parametro booleano quindi potete provarli con il flag "daMostrare"
+
+            8 Bonus: aggiungere un pulsante sopra all'elenco dei messaggi, con testo iniziale "Mostra i messaggi"
+            Al click, il testo cambia in "Nascondi i messaggi" e così via ad ogni click.
+            Quando il testo riporta "Nascondi i messaggi", l'elenco dei messaggi deve essere visibile,
+            quando il testo riporta "Mostra i messaggi", l'elenco dei messaggi non deve essere visibile.
             *@
-            <div class="text-success" style="background-color: lightgray;">
-                Testo messaggio
+
+            <!-- Punti 1 e 2 -->
+            <div v-for="messaggio in model.messaggi" class="text-success" style="background-color: lightgray;">
+                {{ messaggio.testo }}
             </div>
+
+            <!-- Punto 3 -->
+            <div v-for="messaggio in model.messaggi" class="text-success" style="background-color: lightgray;">
+                {{ messaggio.nomeUtente }} - {{ messaggio.testo }}
+            </div>
+
+            <!-- Punto 4 -->
+            <div v-for="messaggio in model.messaggi" v-if="messaggio.daMostrare" class="text-success" style="background-color: lightgray;">
+                {{ messaggio.nomeUtente }} - {{ messaggio.testo }}
+            </div>
+
+            <!-- Punto 5 - Opzione 1 -->
+            <div v-for="messaggio in model.messaggi" v-if="messaggio.daMostrare" class="text-success" v-bind:style="{ 'background-color': messaggio.coloreSfondo }">
+                {{ messaggio.nomeUtente }} - {{ messaggio.testo }}
+            </div>
+            <!-- Punto 5 - Opzione 2 -->
+            <div v-for="messaggio in model.messaggi" v-if="messaggio.daMostrare" class="text-success" v-bind:style="{ backgroundColor: messaggio.coloreSfondo }">
+                {{ messaggio.nomeUtente }} - {{ messaggio.testo }}
+            </div>
+
+            <!-- Punto 6 - Opzione 1 -->
+            <div v-for="messaggio in model.messaggi" v-if="messaggio.daMostrare" v-bind:class="{ 'text-success': !messaggio.errore, 'text-danger': messaggio.errore }" v-bind:style="{ 'background-color': messaggio.coloreSfondo }">
+                {{ messaggio.nomeUtente }} - {{ messaggio.testo }}
+            </div>
+            <!-- Punto 6 - Opzione 2 -->
+            <div v-for="messaggio in model.messaggi" v-if="messaggio.daMostrare" v-bind:class="[ messaggio.errore ? 'text-danger' : 'text-success' ]" v-bind:style="{ 'background-color': messaggio.coloreSfondo }">
+                {{ messaggio.nomeUtente }} - {{ messaggio.testo }}
+            </div>
+
+            <!-- Punto 7 -->
+            <!-- v-if => nell'HTML generato, lo vedete ispezionato la pagina web, noterete che ci sono solo i div dei messaggi daMostrare. Quelli non da mostrare non sono presenti -->
+            <!-- v-show => nell'HTML generato, lo vedete ispezionato la pagina web, ci sono tutti i div di tutti i messaggi. Quelli non da mostrare hanno la classe d-none -->
+            
+            <!-- Punto 8 -->
+            <!-- template è un tag che non fa nulla e non viene mostrato nell'HTML della pagina web. -->
+            <!-- Serve solo per aggiungere condizioni v-if, v-for che non riguardano un singolo elemento (oppure per pulire il codice e non mescolare concetti) -->
+            <!-- In questo caso il "mostraMessaggi" viene prima del ciclo, non serve ciclare sugli elementi se mostraMessaggi è falso quindi non lo mettiamo nel v-if del div ma usiamo un template -->
+            <!-- Notare che mostraMessaggi è una variabile aggiuntiva definita nel file Index.ts e, molto importante, inizializzata nel costruttore -->
+            <button type="button" v-on:click="mostraMessaggi = !mostraMessaggi">
+                {{ mostraMessaggi ? 'Nascondi i messaggi' : 'Mostra i messaggi' }}
+            </button>
+            <template v-if="mostraMessaggi">
+                <div v-for="messaggio in model.messaggi" v-if="messaggio.daMostrare" v-bind:class="{ 'text-success': !messaggio.errore, 'text-danger': messaggio.errore }" v-bind:style="{ 'background-color': messaggio.coloreSfondo }">
+                    {{ messaggio.nomeUtente }} - {{ messaggio.testo }}
+                </div>
+            </template>
         </div>
     </div>
 </div>

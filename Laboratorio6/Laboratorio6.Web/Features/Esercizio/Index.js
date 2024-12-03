@@ -5,6 +5,7 @@ var Features;
         class indexViewModel {
             constructor(model) {
                 this.model = model;
+                this.mostraMessaggi = false;
             }
         }
         Esercizio.indexViewModel = indexViewModel;
