@@ -6,6 +6,7 @@ declare module Features.Esercizio.Server {
 declare module Esercizio.Server {
 	interface messaggioViewModel {
 		id: number;
+		nomeUtente: string;
 		testo: string;
 		daMostrare: boolean;
 		errore: boolean;
